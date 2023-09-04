@@ -1,28 +1,5 @@
 {
-  "favourites": [
-    {
-      "author": "Chinua Achebe",
-      "country": "Nigeria",
-      "imageLink": "images/things-fall-apart.jpg",
-      "language": "English",
-      "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
-      "pages": 209,
-      "title": "Things Fall Apart",
-      "year": 1958,
-      "id": "8F627C92410"
-    },
-    {
-      "author": "Samuel Beckett",
-      "country": "Republic of Ireland",
-      "imageLink": "images/molloy-malone-dies-the-unnamable.jpg",
-      "language": "French, English",
-      "link": "https://en.wikipedia.org/wiki/Molloy_(novel)\n",
-      "pages": 256,
-      "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
-      "year": 1952,
-      "id": "F7A61F18C49"
-    }
-  ],
+  "favourites": [],
   "books": [
     {
       "author": "Chinua Achebe",

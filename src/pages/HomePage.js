@@ -7,13 +7,14 @@ import api from "../apiService";
 import { FormProvider } from "../form";
 import { useForm } from "react-hook-form";
 import { Container, Alert, Box, Card, Stack, CardMedia, CardActionArea, Typography, CardContent } from "@mui/material";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateBooks } from "../sevice/books/slice";
 
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const HomePage = () => {
-  const [books, setBooks] = useState([]);
+  const books = useSelector((state) => state.books);
   const [pageNum, setPageNum] = useState(1);
   const totalPage = 10;
   const limit = 10;
@@ -22,13 +23,15 @@ const HomePage = () => {
   const [query, setQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate()
   const handleClickBook = (bookId) => {
     navigate(`/books/${bookId}`);
   };
 
 
-
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,15 +40,16 @@ const HomePage = () => {
         let url = `/books?_page=${pageNum}&_limit=${limit}`;
         if (query) url += `&q=${query}`;
         const res = await api.get(url);
-        setBooks(res.data);
         setErrorMessage("");
+        dispatch(updateBooks(res.data));//new
       } catch (error) {
         setErrorMessage(error.message);
+        dispatch(updateBooks([]));//new, delete empty array to test later
       }
       setLoading(false);
     };
     fetchData();
-  }, [pageNum, limit, query]);
+  }, [pageNum, limit, query,dispatch]);
   //--------------form
   const defaultValues = {
     searchQuery: ""
@@ -61,7 +65,7 @@ const HomePage = () => {
     <Container>
       <Stack sx={{ display: "flex", alignItems: "center", m: "2rem" }}>
         <Typography variant="h3" sx={{ textAlign: "center" }}>Book Store</Typography>
-        {errorMessage && <Alert severity="danger">{errorMessage}</Alert>}
+        {errorMessage && <Alert severity='error'>{errorMessage}</Alert>}
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack
             spacing={2}
